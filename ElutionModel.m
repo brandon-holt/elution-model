@@ -1,6 +1,8 @@
 function [time, bound] = ElutionModel(nCaptureAntibodies, nProtein, nSignalAntibodies, nCompetingAntibodies, nExcessProtein, kon, koff)
-
+    
+    if numel(kon) == 1; kon = repmat(kon, 1, 3); end
     global Kon; Kon = kon; % [Kcapture, Ksignal, Kcompeting]
+    if numel(koff) == 1; koff = repmat(koff, 1, 3); end
     global Koff; Koff = koff; % [Kcapture, Ksignal, Kcompeting]
     
     % preallocate output arrays
