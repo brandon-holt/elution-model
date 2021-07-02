@@ -6,14 +6,14 @@ function [time, bound] = ElutionModel(nCaptureAntibodies, nProtein, nSignalAntib
     global Koff; Koff = koff; % [Kcapture, Ksignal, Kcompeting]
     
     % preallocate output arrays
-    global tStep; tStep = 0.01;
+    global tStep; tStep = .1;
     t = 0; tMax = 30;
     time = (0:tStep:tMax - tStep)';
     bound = zeros(numel(time),1);
     step = 1;
     
     % protein -> 0 = unbound, 1 = bound to capture Ab, 2 = bound to signal, 3 = bound to competing
-    global protein; valency = 2; 
+    global protein; valency = 60; % note requirement: nProtein >= valency
     protein = zeros(nProtein + nExcessProtein, valency); % add excess protein
     protein(1:nProtein, 1) = 1; % all bound to one capture Ab
     protein(1:nProtein, 2) = 2; % all bound to one signal Ab
@@ -72,7 +72,8 @@ function [ab] = UpdateAntibodyState(ab, i, i_ab)
 
         % bind antibody
         free_proteins = find(protein == 0);
-        if i_ab == Antibodies.Capture; free_proteins = free_proteins(free_proteins <= length(protein)); end % capture abs only bind to first position, ensure there is only one capture Ab per protein
+        if i_ab == Antibodies.Capture; free_proteins = free_proteins(free_proteins <= length(protein)); % capture abs only bind to first position, ensure there is only one capture Ab per protein
+        else; free_proteins = free_proteins(free_proteins > length(protein)); end % all other abs bind to not first position
         if numel(free_proteins) == 0; return; end
         free_protein = free_proteins(randi([1, length(free_proteins)]));
         ab(i,goal) = free_protein;
