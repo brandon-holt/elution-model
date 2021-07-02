@@ -3,19 +3,19 @@
 % protein is 2
 
 % % Method - Competing Antibody, Increasing Amount
-% [~, noCompete] = ElutionModel(60, 60, 60, 0, 0, .1, .1);
-% [~, compete10] = ElutionModel(60, 60, 60, 60, 0, .1, .1);
-% [time, compete100] = ElutionModel(60, 60, 60, 6000, 0, .1, .1);
-% 
-% figure;
-% plot(time, noCompete); hold on;
-% plot(time, compete10); hold on;
-% plot(time, compete100);
-% title('Competing Antibody Elution Method - Valency = 60');
-% xlabel('Time (s)');
-% ylabel('Number of Bound Signal Antibodies');
-% legend('No Competing Antibody', 'Competing Ab, 1X Concentration', 'Competing Ab, 100X Concentration');
-% ylim([0, 100]);
+[~, noCompete] = ElutionModel(60, 60, 60, 0, 0, .1, .1);
+[~, compete10] = ElutionModel(60, 60, 60, 60, 0, .1, .1);
+[time, compete100] = ElutionModel(60, 60, 60, 6000, 0, .1, .1);
+
+figure;
+plot(time, noCompete); hold on;
+plot(time, compete10); hold on;
+plot(time, compete100);
+title('Competing Antibody Elution Method - Valency = 60');
+xlabel('Time (s)');
+ylabel('Number of Bound Signal Antibodies');
+legend('No Competing Antibody', 'Competing Ab, 1X Concentration', 'Competing Ab, 100X Concentration');
+ylim([0, 100]);
 
 % Method - Competing Protein, Increasing Amount
 figure;
