@@ -9,7 +9,7 @@ function [time, bound] = ElutionModel(nCaptureAntibodies, nProtein, nSignalAntib
     % preallocate output arrays
     thresh = 0.1; % less than xx fraction of values will be less than tStep
     global tStep; tStep = expinv(thresh, 1/max(max(kon, koff))); 
-    t = 0; tMax = 2000 * tStep;
+    t = 0; tMax = 4000 * tStep;
     time = (0:tStep:tMax - tStep)';
     bound = zeros(numel(time),1);
     step = 1;
