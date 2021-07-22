@@ -12,13 +12,14 @@ for i = 1:numel(koff)
     for j = 2:repeats+1
         [t, b] = ElutionModel(100, 100, 100, 100, 0, 2, kon, koff(i));
         data(i, 1) = kon / koff(i);
-        data(i, j) = b(end);
+        data(i, j) = (b(1) - b(end)) / t(end);
     end
 end
 
-semilogx(data(:,1), mean(data(:,2:end),2));
+loglog(data(:,1), mean(data(:,2:end),2), 'Marker','o');
 xlabel('Kon/Koff ratio');
-ylabel('Remaining Proteins Bound Post-Elution (no.)');
+ylabel('Protein Elution Velocity (s^{-1})');
+title('Protein Elution at Varying Kd');
 
 % test the effect of valency on the same graph
 figure;
